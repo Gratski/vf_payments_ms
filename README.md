@@ -1,7 +1,7 @@
 # Payments Micro-Service
 This Micro Service is responsible for handling and managing all app payments
 
-##Important notes:
+## Important notes:
 We must have a way of unify users with their user account in the users micro-service (ie: email or userId)
 
 ## REST API
