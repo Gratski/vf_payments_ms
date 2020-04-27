@@ -28,6 +28,7 @@ Expose endpoints for the interaction from Stripe whenever a payment succeeds or 
 
 ### Failed Request to WebHook
 #### /payments-gateway/api/webhooks/charge/failed
+#### Authentication for Header: Stripe-Signature:whsec_WvT0swKUjNjk3WRW4F2S0w3piDeNDFnQ
 
 {
   "created": 1326853478,
@@ -126,7 +127,8 @@ Expose endpoints for the interaction from Stripe whenever a payment succeeds or 
   }
 }
 
-#### /payments-gateway/api/webhooks/charge/succeeded
+#### EndPoint: /payments-gateway/api/webhooks/charge/succeeded
+#### Authentication for Header: Stripe-Signature:whsec_vF8xBtU4iit8pae4aMkNzE6etSGIqLUg
 {
   "created": 1326853478,
   "livemode": false,
