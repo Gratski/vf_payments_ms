@@ -2,6 +2,8 @@
 This Micro Service is responsible for handling and managing all app payments
 
 ## Important notes:
+API Key: pk_test_ThBTJz1fGcXyhAkLnESkAy2q008e3Mh6cG
+Secret Key: sk_test_eMJA07HTa4ephNA3lR42CuHG00k6gjNgTz
 We must have a way of unify users with their user account in the users micro-service (ie: email or userId)
 
 ## REST API
