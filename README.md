@@ -1,4 +1,4 @@
-# vf_payments_ms
+# Payments Micro-Service
 This Micro Service is responsible for handling and managing all app payments
 
 ##Important notes:
@@ -15,7 +15,8 @@ We must have the following exposed Routes:
 
 ## WebHooks
 Expose endpoints for the interaction from Stripe whenever a payment succeeds or fails. Please keep in mind that only authorized requests can pass the security layer.
-####Note: Please pay attention to the token expiration. We need to have an INVALIDATED_TOKENS table so we can keep track of the invalidated token as well as invalidate an existing one whenever we want to.
+
+#### Note: Please pay attention to the token expiration. We need to have an INVALIDATED_TOKENS table so we can keep track of the invalidated token as well as invalidate an existing one whenever we want to.
 
 ## Environment
 This will be deployed on a Kubernetes environment. Since it communicates with an external API all it needs to know is the Stripe Dev & Production endpoints. As well as their credentials.
