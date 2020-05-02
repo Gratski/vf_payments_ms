@@ -1,0 +1,7 @@
+vfit:
+  api-key: sk_test_eMJA07HTa4ephNA3lR42CuHG00k6gjNgTz
+
+spring:
+  output:
+    ansi:
+      enable: ALWAYS

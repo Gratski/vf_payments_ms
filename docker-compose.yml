@@ -1,0 +1,14 @@
+version: '3.5'
+
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres
+    environment:
+      POSTGRES_DB: mydb
+      SCHEMA: public
+      POSTGRES_USER: vFitUser
+      POSTGRES_PASSWORD: vFitPassword
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
