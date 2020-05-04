@@ -1,20 +1,46 @@
 package com.vfit.vfpaymentsgateway
 
+import com.stripe.model.Address
+import com.stripe.model.Customer
 import com.vfit.vfpaymentsgateway.services.CustomerService
 import org.springframework.boot.CommandLineRunner
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class VfPaymentsGatewayApplication(val customerService: CustomerService): CommandLineRunner{
-	override fun run(vararg args: String?) {
-		val customerByEmail = this.customerService.findByEmail("dcsilva2@mail.ru")
+class VfPaymentsGatewayApplication(val customerService: CustomerService){
+/*
+override fun run(vararg args: String?) {
+   *
+    val customer = Customer()
+    customer.email = "dcsilvaWithNameAndMetadataAndShipping@mail.ru"
+    customer.description = "description"
+    customer.currency = "eur"
+    customer.email = "factory@gmail.com"
+    val address = Address()
+    address.state = "Lisboa"
+    address.city = "Lisboa"
+    address.line1 = "this is line 1"
+    address.line2 = "this is line 2"
+    address.postalCode = "1150-299"
+    address.country = "pt"
+    customer.address = address
 
-		println()
-	}
+    //val createdCustomer = this.customerService.create(customer)
+    val customerByEmail = this.customerService.findByEmail(customer.email)
 
+    customerByEmail.name = "Mário Damião"
+    val response = this.customerService.update(customerByEmail)
+
+
+
+    println()
+
+
+}
+*/
 }
 
 fun main(args: Array<String>) {
-	runApplication<VfPaymentsGatewayApplication>(*args)
+runApplication<VfPaymentsGatewayApplication>(*args)
 }

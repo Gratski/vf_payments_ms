@@ -8,9 +8,6 @@ import org.springframework.boot.test.context.SpringBootTest
 @SpringBootTest
 class VfPaymentsGatewayApplicationTests {
 
-	@Autowired
-	val customerService = CustomerService()
-
 	//@Test
 	fun contextLoads() {
 	}
