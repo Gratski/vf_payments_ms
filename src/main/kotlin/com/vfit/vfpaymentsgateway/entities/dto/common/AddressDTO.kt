@@ -1,4 +1,4 @@
-package com.vfit.vfpaymentsgateway.entities.dto
+package com.vfit.vfpaymentsgateway.entities.dto.common
 
 import java.io.Serializable
 

@@ -1,37 +1,41 @@
 package com.vfit.vfpaymentsgateway.factories
 
-import com.stripe.model.Address
-import com.stripe.model.Customer
 import com.stripe.param.CustomerCreateParams
 import com.stripe.param.CustomerUpdateParams
+import com.vfit.vfpaymentsgateway.entities.dto.common.AddressDTO
+import com.vfit.vfpaymentsgateway.entities.dto.input.CustomerInputDto
 import org.springframework.stereotype.Component
 
 @Component
-class Factory : FactoryInf<Customer, CustomerCreateParams, CustomerUpdateParams> {
+class Factory : FactoryInf<CustomerInputDto, CustomerCreateParams, CustomerUpdateParams> {
 
-    override fun toCreate(customer: Customer): CustomerCreateParams {
-        val address = this.transformCreateAddres(customer.address)
+    override fun toCreate(customerInputDto: CustomerInputDto): CustomerCreateParams {
+        val address = customerInputDto.address?.let { this.transformCreateAddress(it) }
 
         return CustomerCreateParams.builder()
-                .setName(customer.name)
-                .setEmail(customer.email)
-                .setDescription(customer.description)
+                .setName(customerInputDto.name)
+                .setEmail(customerInputDto.email)
+                .setDescription(customerInputDto.description)
                 .setAddress(address)
+                .setPhone(customerInputDto.phone)
+                .setMetadata(customerInputDto.metadata)
                 .build()
     }
 
-    override fun toUpdate(customer: Customer): CustomerUpdateParams {
-        val address = this.transformUpdateAddres(customer.address)
+    override fun toUpdate(customerInputDto: CustomerInputDto): CustomerUpdateParams {
+        val address = customerInputDto.address?.let { this.transformUpdateAddress(it) }
 
         return CustomerUpdateParams.builder()
-                .setName(customer.name)
-                .setEmail(customer.email)
-                .setDescription(customer.description)
+                .setName(customerInputDto.name)
+                .setEmail(customerInputDto.email)
+                .setDescription(customerInputDto.description)
                 .setAddress(address)
+                .setPhone(customerInputDto.phone)
+                .setMetadata(customerInputDto.metadata)
                 .build()
     }
 
-    private fun transformCreateAddres(address : Address): CustomerCreateParams.Address{
+    private fun transformCreateAddress(address: AddressDTO): CustomerCreateParams.Address{
         return CustomerCreateParams.Address.builder()
                 .setCountry(address.country)
                 .setCity(address.city)
@@ -42,7 +46,7 @@ class Factory : FactoryInf<Customer, CustomerCreateParams, CustomerUpdateParams>
                 .build()
     }
 
-    private fun transformUpdateAddres(address : Address): CustomerUpdateParams.Address{
+    private fun transformUpdateAddress(address : AddressDTO): CustomerUpdateParams.Address{
         return CustomerUpdateParams.Address.builder()
                 .setCountry(address.country)
                 .setCity(address.city)
