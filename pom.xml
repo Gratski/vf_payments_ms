@@ -17,12 +17,20 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<kotlin.version>1.3.71</kotlin.version>
+		<mapstruct.version>1.3.1.Final</mapstruct.version>
+		<kotlin.compiler.jvmTarget>1.8</kotlin.compiler.jvmTarget>
 	</properties>
 
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -58,6 +66,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+			<version>${mapstruct.version}</version>
+		</dependency>
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
@@ -69,7 +83,7 @@
 			</exclusions>
 		</dependency>
 	</dependencies>
-
+<!--
 	<build>
 		<sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
 		<testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
@@ -99,5 +113,88 @@
 			</plugin>
 		</plugins>
 	</build>
+	-->
 
+	<build>
+		<sourceDirectory>src/main/kotlin</sourceDirectory>
+		<testSourceDirectory>src/test/kotlin</testSourceDirectory>
+
+		<plugins>
+			<plugin>
+				<groupId>org.jetbrains.kotlin</groupId>
+				<artifactId>kotlin-maven-plugin</artifactId>
+				<version>${kotlin.version}</version>
+				<executions>
+					<execution>
+						<id>kapt</id>
+						<goals>
+							<goal>kapt</goal>
+						</goals>
+						<configuration>
+							<sourceDirs>
+								<sourceDir>src/main/kotlin</sourceDir>
+								<sourceDir>src/main/java</sourceDir>
+							</sourceDirs>
+							<annotationProcessorPaths>
+								<annotationProcessorPath>
+									<groupId>org.mapstruct</groupId>
+									<artifactId>mapstruct-processor</artifactId>
+									<version>${mapstruct.version}</version>
+								</annotationProcessorPath>
+							</annotationProcessorPaths>
+						</configuration>
+					</execution>
+					<execution>
+						<id>compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>test-compile</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>test-compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.1</version>
+				<configuration>
+					<proc>none</proc>
+					<source>${kotlin.compiler.jvmTarget}</source>
+					<target>${kotlin.compiler.jvmTarget}</target>
+				</configuration>
+				<executions>
+					<!-- Replacing default-compile as it is treated specially by maven -->
+					<execution>
+						<id>default-compile</id>
+						<phase>none</phase>
+					</execution>
+					<!-- Replacing default-testCompile as it is treated specially by maven -->
+					<execution>
+						<id>default-testCompile</id>
+						<phase>none</phase>
+					</execution>
+					<execution>
+						<id>java-compile</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>java-test-compile</id>
+						<phase>test-compile</phase>
+						<goals> <goal>testCompile</goal> </goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 </project>
