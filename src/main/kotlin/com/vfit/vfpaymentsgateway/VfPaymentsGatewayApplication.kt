@@ -1,14 +1,11 @@
 package com.vfit.vfpaymentsgateway
 
-import com.stripe.model.Address
-import com.stripe.model.Customer
-import com.vfit.vfpaymentsgateway.services.CustomerService
-import org.springframework.boot.CommandLineRunner
+import com.vfit.vfpaymentsgateway.services.customers.CustomerService
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class VfPaymentsGatewayApplication(val customerService: CustomerService){
+open class VfPaymentsGatewayApplication(val customerService: CustomerService){
 /*
 override fun run(vararg args: String?) {
    *

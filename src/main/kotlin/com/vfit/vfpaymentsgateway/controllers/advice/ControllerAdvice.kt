@@ -1,6 +1,7 @@
 package com.vfit.vfpaymentsgateway.controllers.advice
 
 import com.vfit.vfpaymentsgateway.exceptions.EmailExistsException
+import com.vfit.vfpaymentsgateway.exceptions.NoMatchPrimaryKeyException
 import org.springframework.http.HttpStatus
 import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
@@ -38,8 +39,13 @@ class ControllerAdvice {
     }
 
     @ExceptionHandler(EmailExistsException::class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     fun handleEmailExistsException(){
+    }
+
+    @ExceptionHandler(NoMatchPrimaryKeyException::class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    fun handleENoMatchPrimaryKeyException(){
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

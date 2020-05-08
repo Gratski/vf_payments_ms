@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 
 @Configuration
 @EnableSwagger2
-class SwaggerConfig {
+open class SwaggerConfig {
 
     private companion object SwaggerApiConfig {
         fun buildConfig(): ApiInfo =

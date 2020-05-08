@@ -1,25 +1,28 @@
-package com.vfit.vfpaymentsgateway.services
+package com.vfit.vfpaymentsgateway.services.customers
 
 import com.stripe.model.Customer
 import com.stripe.param.CustomerCreateParams
 import com.stripe.param.CustomerListParams
 import com.stripe.param.CustomerUpdateParams
 import com.vfit.vfpaymentsgateway.entities.dto.input.CustomerInputDto
-import com.vfit.vfpaymentsgateway.entities.dto.output.CustomResponseEntity
+import com.vfit.vfpaymentsgateway.entities.dto.common.CustomResponseEntity
 import com.vfit.vfpaymentsgateway.entities.dto.output.CustomerOutputDto
 import com.vfit.vfpaymentsgateway.exceptions.EmailExistsException
-import com.vfit.vfpaymentsgateway.factories.FactoryInf
-import com.vfit.vfpaymentsgateway.mapper.CustomerConverter
+import com.vfit.vfpaymentsgateway.factories.FactoryInt
+import com.vfit.vfpaymentsgateway.mapper.CustomerMapper
+import com.vfit.vfpaymentsgateway.services.StripeSetup
 import org.springframework.stereotype.Service
 import java.util.*
 
 @Service
-class CustomerService(val factory : FactoryInf<CustomerInputDto, CustomerCreateParams, CustomerUpdateParams>,
-                      val converter : CustomerConverter) : StripeSetup(), CustomerServiceInt {
+class CustomerService(private val factory : FactoryInt<CustomerInputDto, CustomerCreateParams, CustomerUpdateParams>,
+                      private val mapper : CustomerMapper) : StripeSetup(), CustomerServiceInt {
 
     override fun create(customerInputDto: CustomerInputDto): CustomerOutputDto {
         val customerCreateParams = factory.toCreate(customerInputDto)
-        return converter.convertToDto(Customer.create(customerCreateParams))
+        //TODO: investigar pq estou a ter problemas com o mapper a baixo
+        //val customerCreateParamsTest = mapper.convertInputDtoToCreateParams(customerInputDto)
+        return mapper.convertEntityToOutputDTO(Customer.create(customerCreateParams))
     }
 
     @Deprecated("Just to see how call an object properties")
@@ -28,7 +31,7 @@ class CustomerService(val factory : FactoryInf<CustomerInputDto, CustomerCreateP
         params["name"] = name
 
         val account: MutableList<Customer> = Customer.list(params).data
-        val dto = converter.convertToDto(account)
+        val dto = mapper.convertEntityListToOutputDtoList(account)
 
         return CustomResponseEntity(dto, dto.size)
     }
@@ -43,7 +46,7 @@ class CustomerService(val factory : FactoryInf<CustomerInputDto, CustomerCreateP
             }
             customer = result.first()
         }
-        return converter.convertToDto(customer)
+        return mapper.convertEntityToOutputDTO(customer)
     }
 
     override fun update(email: String, customerInputDto: CustomerInputDto): CustomerOutputDto {
@@ -51,6 +54,6 @@ class CustomerService(val factory : FactoryInf<CustomerInputDto, CustomerCreateP
         val actualCustomer = Customer.retrieve(customerByEmailResult.id)
         val customerUpdateParams = this.factory.toUpdate(customerInputDto)
         val response = actualCustomer.update(customerUpdateParams)
-        return converter.convertToDto(response)
+        return mapper.convertEntityToOutputDTO(response)
     }
 }

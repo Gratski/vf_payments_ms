@@ -2,12 +2,13 @@ package com.vfit.vfpaymentsgateway.factories
 
 import com.stripe.param.CustomerCreateParams
 import com.stripe.param.CustomerUpdateParams
+import com.vfit.vfpaymentsgateway.config.VFitConfig
 import com.vfit.vfpaymentsgateway.entities.dto.common.AddressDTO
 import com.vfit.vfpaymentsgateway.entities.dto.input.CustomerInputDto
 import org.springframework.stereotype.Component
 
 @Component
-class Factory : FactoryInf<CustomerInputDto, CustomerCreateParams, CustomerUpdateParams> {
+class CustomerFactory(val vFitConfig: VFitConfig) : FactoryInt<CustomerInputDto, CustomerCreateParams, CustomerUpdateParams> {
 
     override fun toCreate(customerInputDto: CustomerInputDto): CustomerCreateParams {
         val address = customerInputDto.address?.let { this.transformCreateAddress(it) }

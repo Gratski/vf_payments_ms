@@ -1,7 +1,7 @@
-package com.vfit.vfpaymentsgateway.services
+package com.vfit.vfpaymentsgateway.services.customers
 
 import com.vfit.vfpaymentsgateway.entities.dto.input.CustomerInputDto
-import com.vfit.vfpaymentsgateway.entities.dto.output.CustomResponseEntity
+import com.vfit.vfpaymentsgateway.entities.dto.common.CustomResponseEntity
 import com.vfit.vfpaymentsgateway.entities.dto.output.CustomerOutputDto
 
 interface CustomerServiceInt {
